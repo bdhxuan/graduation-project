@@ -21,7 +21,7 @@ li{
     background-color: rgb(41, 110, 175);
     height: 6rem;
     display: grid;
-    grid-template-columns: 6rem 1fr 2fr 1fr 6rem;
+    grid-template-columns: 6rem 0.8fr 2fr 1fr 7rem;
     
 }
 
@@ -40,7 +40,7 @@ li{
 .logo h1{
     color: rgb(207, 241, 13);
     font-size: 2.5rem;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
     text-transform: uppercase;
 }
 .logo a {
@@ -62,51 +62,79 @@ li{
 .icon {
     grid-column: 4/5;
     font-size: 1.6rem;
-
 }
 
-.icon ul {
+.icon {
     height: 6rem;
     display: grid;
-    grid-template-columns: 3fr repeat(3, 1fr);
+    grid-template-columns: 20rem 5fr 1fr;
     align-items: center;
     justify-content: flex-end;
-    letter-spacing: 30px;
 }
 
-.icon ul li{
+/* .icon {
     text-align: right;
+} */
+
+.icon .formDiv {
+    width: 100%;
+    height: 50%;
+    background-color: white;
+    border-radius: 15px;
+    color: blue;
 }
 
-.menu-link ul li {
+.formDiv button{
+    font-size: 1.3rem;
+    color: blue;
+    border: none;
+}
+
+.formDiv .form-group span{
+    color: blue;
+}
+
+.form-group input{
+    box-shadow: none !important;
+    outline: none !important;
+    color: black;
+    font-size: 15px;
+}
+
+.form-group input:hover {
+    color: black;
+}
+
+.menu-link {
     font-size: 1.6rem;
 }
 
-.menu-link ul li a{
+.menu-link a{
     text-transform: capitalize;
     color:white;
     transition: 0.5s;
     text-decoration: none;
 }
 
-.menu-link ul li:hover > a {
+.menu-link a:hover {
     transform-origin: left;
     color:yellow;
     transition: 0.5s;
 }
 
-.icon ul li a{
+.icon a{
     text-align: right;
     color: white
 }
 
-.icon ul li a :hover {
+.icon :hover {
     color: yellow;
 }
 
-.icon ul li:first-child{
+/* .icon :first-child{
     grid-column: 2/3;
-}
+    width: 100px;
+} */
 
 .icon .menu a {
     display: none;

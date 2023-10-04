@@ -53,9 +53,9 @@ const ProcessOrder = () => {
   return (
     <Fragment>
       <Title title="Process Order" />
-      <div className="dashboard">
+      <div className="dashboard1">
         <Sidebar />
-        <div className="newProductContainer">
+        <div className="newProductContainer1">
           {loading ? (
             <Loader />
           ) : (
@@ -87,7 +87,10 @@ const ProcessOrder = () => {
                       <span>{new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(order.totalPrice && order.totalPrice)}</span>
                     </div>
                     <div>
-                      <p>Đặt hàng lúc: {order.createAt}</p>
+                      <p>Hình thức thanh toán: </p><span>{order.paymentMethod}</span>
+                    </div>
+                    <div>
+                      <p>Đặt hàng lúc: </p><span>{order.createAt}</span>
                     </div>
                   </div>
 
@@ -137,7 +140,7 @@ const ProcessOrder = () => {
                     </select>
                   </div>
 
-                  <Button id="createProductBtn" type="submit" disabled={ loading ? true : false || status === "" ? true : false}>
+                  <Button id="createOrderBtn" type="submit" disabled={ loading ? true : false || status === "" ? true : false}>
                     Lưu
                   </Button>
                 </form>

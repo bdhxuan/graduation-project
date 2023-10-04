@@ -27,6 +27,8 @@ const MyOrders = () => {
 
     { field: "amount", headerName: "Thành tiền", type: "number", minWidth: 270, flex: 0.5,},
 
+    // { field: "paid", headerName: "Thanh toán", type: "number", minWidth: 270, flex: 0.5,},
+
     { field: "actions", flex: 0.3, headerName: "Actions", minWidth: 150, type: "number", sortable: false, renderCell: (params) => {
         return (
           <Link to={`/order/${params.getValue(params.id, "id")}`}>

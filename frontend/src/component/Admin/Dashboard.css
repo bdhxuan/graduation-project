@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: 0.7fr 5fr;
     position: absolute;
-    height: 80%;
+    height: 100%;
     margin-top: -6%;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .dashboardContainer>h1 {
-    color: rgb(38, 107, 246);
+    color: blue;
     font-size: 30px;
     text-transform: uppercase;
     font-weight: bold;
@@ -41,13 +41,13 @@
     font-size: 18px;
     text-transform: uppercase;
     text-align: center;
-    background-color: rgb(242, 199, 81);
+    background-color: rgb(250 128 114);
     text-decoration: none;
     padding: 1.5rem;
-    width: 12rem;
-    height: 12rem;
+    width: 20rem;
+    height: 10rem;
     margin: 2rem; 
-    border-radius: 100%; 
+    border-radius: 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,15 +59,112 @@
     color: white;
 }
 
+
 .dashboardSummaryBox2>a:last-child {
     background-color: rgb(196, 123, 184);
     color: white;
+}
+
+.ListContainer{
+    display: grid;
+    grid-template-columns: 45rem 50rem;
+}
+
+.productListContainer1 {
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+}
+
+.productListContainer1 > h2{
+    margin: 1rem 0 0 8rem;
+}
+
+
+.productListTable1 {
+    background-color: white;
+    border: none !important;
+    width: 70%;
+    margin: 2rem 7rem;
+}
+
+.productListTable1 div {
+    font-size: 15px;
+    color: black;
+    border: none !important;
+}
+
+.productListTable1 a,
+.productListTable1 button {
+    color: blue;
+    transition: all 0.5s;
+}
+
+.productListTable1 a:hover {
+    color: rgb(236, 30, 30);
+}
+
+.productListTable1 button:hover {
+    color: red;
+}
+
+.MuiDataGrid-columnHeader {
+    background-color: rgb(205 149 12);
+}
+
+.MuiDataGrid-columnHeader div {
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+}
+
+.productListContainer2 {
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+}
+
+.productListContainer2 > h2{
+    margin: 1rem 0 0 7rem;
+}
+
+.productListTable2 {
+    background-color: white;
+    border: none !important;
+    width: 90%;
+    margin: 2rem 7rem;
+}
+
+.productListTable2 div {
+    font-size: 15px;
+    color: black;
+    border: none !important;
+}
+
+.productListTable2 a,
+.productListTable2 button {
+    color: blue;
+    transition: all 0.5s;
+}
+
+.productListTable2 a:hover {
+    color: rgb(236, 30, 30);
+}
+
+.productListTable2 button:hover {
+    color: red;
 }
 
 
 @media screen and (max-width: 600px) {
     .dashboard {
             grid-template-columns: 1fr;
+            margin-top: -10rem;
         }
     
         .dashboardContainer {

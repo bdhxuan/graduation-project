@@ -1,5 +1,5 @@
-import React, {Fragment, useEffect, useRef} from 'react';
-import CheckoutSteps from "../Cart/CheckoutSteps";
+import React, {Fragment, useEffect, useRef, useState} from 'react';
+import CheckoutSteps from "./CheckoutSteps";
 import { useSelector, useDispatch } from "react-redux";
 import Title from '../layout/Title';
 import "./ConfirmOrder.css";
@@ -7,16 +7,17 @@ import { Link } from "react-router-dom";
 import Loader from '../layout/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { createOrder, clearErrors } from "../../Actions/orderAction";
+import { Form, Col } from "react-bootstrap";
 
 
-const ConfirmOder = () => {
-
+const ConfirmOrder = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const payBtn = useRef(null);
-  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+  const { shippingInfo, cartItems} = useSelector((state) => state.cart);
   const { user, loading } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.newOrder);
+  
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,0
@@ -27,6 +28,10 @@ const ConfirmOder = () => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.ward}, ${shippingInfo.district}, ${shippingInfo.city}`;
 
+  const [paymentMethod, setPaymentMethod] = useState("");
+  
+  const isPaid = false;
+
    const proceedToPayment = () => {
     const order = {
       shippingInfo,
@@ -35,9 +40,12 @@ const ConfirmOder = () => {
       subtotal,
       shippingCharges,
       totalPrice,
+      paymentMethod,
+      isPaid
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(order));
     payBtn.current.disabled = false;
+    console.log(paymentMethod);
     dispatch(createOrder(order));
     navigate("/order/success");
   };
@@ -64,7 +72,7 @@ const ConfirmOder = () => {
             <div className="confirmshippingBox">
               <div>
                 <p>Tên:</p>
-                <span>{user.username}</span>
+                <span>{shippingInfo.username}</span>
               </div>
               <div>
                 <p>SĐT:</p>
@@ -103,9 +111,12 @@ const ConfirmOder = () => {
                 <p>Tạm tính:</p>
                 <span>{new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(subtotal)}</span>
               </div>
-              <div>
+              <div className='orderSummary2'>
                 <p>Phí giao hàng:</p>
                 <span>{new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(shippingCharges)}</span>
+              </div>
+              <div>
+
               </div>
             </div>
 
@@ -113,8 +124,25 @@ const ConfirmOder = () => {
               <p><b>TỔNG CỘNG:</b></p>
               <span>{new Intl.NumberFormat("vi-VN", {style: "currency", currency: "VND"}).format(totalPrice)}</span>
             </div>
+            
+            <div className='confirmForm'>
+              <h3>Phương thức thanh toán:</h3>
+              <div className='paymentForm'>
+                <Form>
+                  <Form.Group>
+                  <Form.Label as="legend">Chọn phương thức thanh toán</Form.Label>
+                  <Col>
+                      <Form.Check type="radio" label="Paypal hoặc Credit Card" id="paypal" name="paymentMethod" required="required" value="paypal"onChange={(e) => setPaymentMethod(e.target.value)}>
+                      </Form.Check>
+                      <Form.Check type="radio" label="Thanh toán khi nhận hàng" id="cod" name="paymentMethod" value="cod" onChange={(e) => setPaymentMethod(e.target.value)}>
+                      </Form.Check>
+                  </Col>
+                  </Form.Group>
+              </Form>
+              </div>
+            </div>
 
-            <button ref={payBtn} onClick={proceedToPayment}>Thanh toán</button>
+            <button ref={payBtn} onClick={proceedToPayment} className="btn_payment">Đặt hàng</button>
           </div>
         </div>
       </div>
@@ -124,4 +152,4 @@ const ConfirmOder = () => {
   )
 }
 
-export default ConfirmOder;
+export default ConfirmOrder;

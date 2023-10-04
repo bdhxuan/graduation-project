@@ -45,7 +45,7 @@ const ListUser = () => {
     }, [dispatch, error, deleteError, navigate, isDeleted, message]);
 
     const columns = [
-        // { field: "id", headerName: "Mã người dùng", minWidth: 180, flex: 0.8 },
+        { field: "id", headerName: "ID người dùng", minWidth: 180, flex: 0.8 },
 
         { field: "email", headerName: "Email", minWidth: 200, flex: 1},
 

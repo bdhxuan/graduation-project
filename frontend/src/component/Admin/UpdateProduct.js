@@ -5,7 +5,6 @@ import { clearErrors, updateProduct, getProductDetails} from "../../Actions/prod
 import Title from '../layout/Title';
 import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@material-ui/core";
 import {UPDATE_PRODUCT_RESET} from "../../Constants/productConstant";
 import {useParams} from "react-router-dom";
 import {getCategories} from "../../Actions/categoryAction"
@@ -111,19 +110,20 @@ const UpdateProduct = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="newProductContainer">
-          <form className="createProductForm" encType="multipart/form-data" onSubmit={updateProductSubmitHandle}>
+          <div className='newProductBox'>
             <h1>Chỉnh sửa sản phẩm</h1>
+            <form className="createProductForm" encType="multipart/form-data" onSubmit={updateProductSubmitHandle}>
             <div>
-              <input type="text" placeholder="Tên sản phẩm" required value={name} onChange={(e) => setName(e.target.value)} />
+              <input className='textbox1' type="text" placeholder="Tên sản phẩm" required value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div>
-              <input type="number" placeholder="Giá" required onChange={(e) => setPrice(e.target.value)} value={price} />
+              <input className='textbox2' type="number" placeholder="Giá" required onChange={(e) => setPrice(e.target.value)} value={price} />
             </div>
             <div>
-              <textarea placeholder="Mô tả sản phẩm" value={description} onChange={(e) => setDescription(e.target.value)} cols="30" rows="1"></textarea>
+              <textarea className='textbox2' placeholder="Mô tả sản phẩm" value={description} onChange={(e) => setDescription(e.target.value)} cols="30" rows="1"></textarea>
             </div>
 
-            <div>
+            <div >
               <select onChange={(e) => setCategory(e.target.value)} value={category}>
                 <option>Chọn danh mục sản phẩm</option>
                 {categories && categories.map(c => (
@@ -134,11 +134,11 @@ const UpdateProduct = () => {
             </div>
 
             <div>
-              <input type="number" placeholder="Số lượng" required onChange={(e) => setStock(e.target.value)} value={stock}/>
+              <input className='textbox2' type="number" placeholder="Số lượng" required onChange={(e) => setStock(e.target.value)} value={stock}/>
             </div>
 
             <div id="createProductFormFile">
-              <input type="file" name="avatar" accept="image/*" onChange={updateProductImagesChange} multiple />
+              <input className='textbox1' type="file" name="avatar" accept="image/*" onChange={updateProductImagesChange} multiple />
             </div>
 
             <div id="createProductFormImage">
@@ -152,8 +152,9 @@ const UpdateProduct = () => {
                 <img key={index} src={`/uploads/${images}`} alt="Product Preview" />
               ))}
             </div>
-            <Button id="createProductBtn" type="submit" disabled={loading ? true : false}> Cập nhật</Button>
+            <input className="shippingBtn" value="Cập nhật" type="submit" disabled={loading ? true : false}/>
           </form>
+          </div>
         </div>
       </div>
     </Fragment>

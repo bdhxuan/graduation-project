@@ -1,11 +1,12 @@
 .profileContainer {
     display: flex;
-    height: 80vh;
+    height: 105vh;
     width: 100%;
     max-width: 100%;
-    margin-top: -6%;
+    max-height: 100%;
     position: absolute;
     background-color: white;
+    margin-top: -10rem;
 }
 
  .profileContainer>div {
@@ -16,20 +17,22 @@
     justify-content: center;
     align-items: center;
     max-width: 100%;
+    margin-left: 13%;
 }
 
 .profileContainer>div:first-child>h1 {
-    color:blue;
-    font-size: 20px;
-    margin-top: -25%;
     text-align: center;
+    color: blue;
     font-weight: bold;
+    text-transform: uppercase;
+    margin-top: -20%;
 }
 
 .profileContainer>div:first-child>img {
     width: 20rem;
     border-radius: 100%;
     transition: all 0.5s;
+    margin-top: 5%;
 }
 
 .profileContainer>div:first-child>img:hover {
@@ -38,13 +41,13 @@
 
 .profileContainer>div:first-child>a {
     border: none;
-    background-color: rgb(4, 97, 238);
-    font-size: 15px;
+    background-color: rgb(205 149 12);
+    font-size: 18px;
     color: white;
     text-decoration: none;
     padding: 0.5rem;
-    width: 30%;
-    margin: 2rem;
+    width: 50%;
+    margin: 5rem;
     text-align: center;
     transition: all 0.5s;
     border-radius: 5px;
@@ -57,21 +60,21 @@
 .profileContainer>div:last-child {
     /* justify-content: space-evenly; */
     align-items: flex-start;
-    padding: 5vmax;
+    padding: 5vma;
+    margin-left: 100px;
     box-sizing: border-box;
     display: flex;
+    margin-top: 50px;
 }
 
 .profileContainer>div:last-child>div>h4 {
     color: black;
     font-size: 20px;
-    
 }
 
 .profileContainer>div:last-child>div>p {
     color: rgba(0, 0, 0, 0.418);
     font-size: 15px;
-    
 }
 
 .profileContainer>div:last-child>div:last-child {
@@ -79,6 +82,29 @@
     width: 60%;
     margin-bottom: 30%;
 }
+
+.update_pass {
+    border: none;
+    background-color: rgb(205 149 12);
+    font-size: 18px;
+    padding: 0.5rem;
+    margin-top: 3rem;
+    text-align: center;
+    transition: all 0.5s;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.update_pass > a{
+    color: white;
+    text-decoration: none;
+    width:50%;
+}
+
+.update_pass:hover {
+    background-color: rgb(204, 78, 56);
+}
+
 
 
 @media screen and (max-width: 600px) {

@@ -3,7 +3,6 @@ import Title from '../layout/Title';
 import Sidebar from './Sidebar';
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@material-ui/core";
 import {createCategory, clearErrors} from "../../Actions/categoryAction";
 import {NEW_CATEGORY_RESET} from "../../Constants/categoryConstant";
 import "./NewCategory.css";
@@ -46,13 +45,15 @@ const NewCategory = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="newCategoryContainer">
-          <form className="createCategoryForm" encType="multipart/form-data" onSubmit={createCategorySubmitHandle}>
+            <div className='newCategoryBox'>
             <h1>Thêm danh mục sản phẩm</h1>
-            <div>
-              <input type="text" placeholder="Tên danh mục sản phẩm" required value={category} onChange={(e) => setCategory(e.target.value)} />
+              <form className="createCategoryForm" encType="multipart/form-data" onSubmit={createCategorySubmitHandle}>
+              <div>
+                <input className='textbox1' type="text" placeholder="Tên danh mục sản phẩm" required value={category} onChange={(e) => setCategory(e.target.value)} />
+              </div>
+              <input className="shippingBtn" value="Thêm mới" type="submit" disabled={loading ? true : false}/>
+            </form>
             </div>
-            <Button id="createCategorytBtn" type="submit" disabled={loading ? true : false}> Thêm mới</Button>
-          </form>
         </div>
       </div>
     </Fragment>

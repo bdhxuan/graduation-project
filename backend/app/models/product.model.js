@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, "Nhập tên sản phẩm"],
-        trim: true,
-    },
     price: {
         type: Number,
         required: [true, "Nhập giá"],
@@ -36,6 +31,31 @@ const productSchema = new mongoose.Schema({
         maxLength: [4, "Kho không được vượt quá 4 ký tự"],
         default:1,
     },
+    numOfReviews: {
+        type: Number,
+        default: 0,
+      },
+      reviews: [
+        {
+          user: {
+            type: mongoose.Schema.ObjectId,
+            ref: "User",
+            required: true,
+          },
+          name: {
+            type: String,
+            required: true,
+          },
+          rating: {
+            type: Number,
+            required: true,
+          },
+          comment: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
     user: {
         type: mongoose.Schema.ObjectId,
         ref: "User",

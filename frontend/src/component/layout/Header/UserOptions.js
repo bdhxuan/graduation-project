@@ -6,6 +6,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
+import HomeIcon from '@material-ui/icons/Home';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import {logout} from "../../../Actions/userAction"
@@ -31,8 +32,13 @@ const UserOptions = ({ user }) => {
     options.unshift(
       { icon: <ListAltIcon />, name: "Đơn hàng của tôi", func: orders },
       { icon: <PersonIcon />, name: "Tài khoản", func: account },
+      { icon: <HomeIcon />, name: "Trang chủ", func: home },
       { icon: <ExitToAppIcon />, name: "Đăng xuất", func: logoutUser },
     );
+  }
+
+  function home() {
+    navigate("/");
   }
 
   function dashboard() {
@@ -63,14 +69,7 @@ const UserOptions = ({ user }) => {
         open={open}
         direction="down"
         className="speedDial"
-        icon={
-          <img
-            className="speedDialIcon"
-            src={"/user.png"}
-            alt="Profile"
-          />
-        }
-      >
+        icon={<img className="speedDialIcon" src={user.avatar.url} alt="Profile" />}>
         {options.map((item) => (
           <SpeedDialAction
             key={item.name}

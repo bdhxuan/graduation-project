@@ -12,6 +12,7 @@ const Cart = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const { cartItems } = useSelector((state) => state.cart);
     const increaseQuantity = (id, quantity, stock) => {
         const newqt = quantity + 1;

@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Nhập tên"],
         maxLength:[30, "Tên không thể vượt quá 30 ký tự!"],
-        minLength:[4, "Tên nên có lớn hơn 4 ký tự!"],
     },
     email: {
         type: String,
@@ -29,7 +28,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "thành viên",
     },
-
+    avatar: {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    resetPasswordToken: String,
 });
 
 //bam mat khau truoc khi luu
@@ -51,5 +60,19 @@ userSchema.methods.getJWTToken = function() {
 userSchema.methods.comparePassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
+
+
+userSchema.methods.getResetPasswordToken = function () {
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    this.resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+  
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+  
+    return resetToken;
+  };
+  
 
 module.exports = mongoose.model("User", userSchema);

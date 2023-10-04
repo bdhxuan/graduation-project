@@ -12,29 +12,28 @@
     font-size: 30px;
     padding: 0.7rem;
     box-sizing: border-box;
-    color: rgb(4, 97, 238);
+    color: blue;
     transition: all 0.5s;
     margin: 2rem;
     text-align: center;
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 .productListTable {
     background-color: white;
     border: none !important;
-    
 }
 
 .productListTable div {
     font-size: 15px;
     color: black;
     border: none !important;
-    
 }
 
 .productListTable a,
 .productListTable button {
-    color: rgba(245, 10, 10, 0.527);
+    color: blue;
     transition: all 0.5s;
 }
 
@@ -43,7 +42,11 @@
 }
 
 .productListTable button:hover {
-    color: rgb(236, 30, 30);
+    color: red;
+}
+
+.MuiDataGrid-columnHeader {
+    background-color: rgb(205 149 12);
 }
 
 .MuiDataGrid-columnHeader div {

@@ -116,12 +116,17 @@
 
 .submitReview {
     border: none;
+    background-color: rgb(205 149 12);
     text-transform: uppercase;
-    font-size: 15px;
-    border-radius: 4px;
-    padding: 0.4rem 2rem;
-    margin: 1rem 0;
+    color: white;
+    font-size: 18px;
+    width: 40%;
+    padding: 0.7rem;
     cursor: pointer;
+    transition: all 0.5s;
+    outline: none;
+    margin: 3rem 0 0 59rem;
+    border-radius: 4px;
 }
 
 .submitDialog {
@@ -139,15 +144,14 @@
 
 
 .reviewHeading {
-    color: #08399dbe;
+    color:blue;
+    font-size: 25px;
     text-transform: uppercase;
-    font-size: 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.226);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.226); */
     padding: 0.5rem;
     width: 15rem;
-    margin: auto;
-    margin-bottom: 2rem;
+    margin: 5rem 0 0 3.5rem;
 }
 
 .reviews {
@@ -163,7 +167,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem;
+    margin: 2rem 0 5rem 6.5rem;
     padding: 2rem;
 }
 
@@ -179,12 +183,16 @@
 
 .reviewCardComment {
     color: black;
+}
+
+.reviewCardComment {
+    color: black;
     font-size: 10px;
 }
 
 .noReviews {
-    font-size: 25px;
-    text-align: center;
+    font-size: 18px;
+    margin: 1rem 0 3rem 6.5rem;
     color: black;
 }
 

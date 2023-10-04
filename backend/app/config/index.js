@@ -13,17 +13,16 @@ const config = {
         ck_exprise: process.env.COOKIE_EPIRE || "5"
     },
     smpt: {
-        smpts: process.env.SMPT_SERVICE || "gmail",
-        smptm: process.env.SMPT_MAIL || "xuanb1910180@student.ctu.edu.vn",
-        smptp: process.env.SMPT_PASSWORD || "xuan061201",
-        smpth: process.env.SMPT_HOST || "smtp.gmail.com",
-        smptport: process.env.SMPT_PORT || "465"
+        smptm: process.env.SMPT_MAIL || "isabel.schimmel65@ethereal.email",
+        smptp: process.env.SMPT_PASSWORD || "taeCqx8kKxTFGVYJHP",
+        smpth: process.env.SMPT_HOST || "smtp.ethereal.email",
+        smptport: process.env.SMPT_PORT || "587"
     },
     cloud: {
         cloud_name: process.env.CLOUDINARY_NAME || "ddqajwkuy",
         api_key: process.env.CLOUDINARY_API_KEY || "778153499139499",
         api_secret: process.env.CLOUDINARY_API_SECRET || "kh6VyHAOBMvzUXmCKaZpv3TF6mU",
-    }
+    },
 };
 
 

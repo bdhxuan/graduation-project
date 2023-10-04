@@ -10,6 +10,7 @@ const category = require("./app/routes/category.route")
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const { config } = require("dotenv");
 
 
 const app = express();
@@ -32,6 +33,7 @@ app.use("/api/v1", filter);
 app.use("/api/v1", feature);
 
 app.use("/api/v1", category);
+
 
 
 app.use((req, res, next) => {

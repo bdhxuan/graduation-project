@@ -17,6 +17,9 @@ import {
     DELETE_ORDER_REQUEST,
     DELETE_ORDER_SUCCESS,
     DELETE_ORDER_FAIL,
+    ORDER_PAY_REQUEST,
+    ORDER_PAY_SUCCESS,
+    ORDER_PAY_FAIL,
     CLEAR_ERRORS,
 } from "../Constants/orderConstant";
 import axios from "axios";
@@ -35,6 +38,7 @@ export const createOrder = (order) => async (dispatch) => {
     const { data } = await axios.post("/api/v1/order/new", order, config);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+    
   } catch (error) {
     dispatch({
       type: CREATE_ORDER_FAIL,
@@ -120,7 +124,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });
 
-    const { data } = await axios.delete(`/api/v1/admin/order/${id}`);
+    const { data } = await axios.delete(`/api/v1/order/${id}`);
 
     dispatch({ 
       type: DELETE_ORDER_SUCCESS, 
@@ -138,3 +142,21 @@ export const deleteOrder = (id) => async (dispatch) => {
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };
+
+export const payOrder =(id, paymentResult) => async (dispatch) => {
+    try {
+      dispatch({
+        type: ORDER_PAY_REQUEST,
+      });
+      // const {userLogin: { userInfo },} = getState();
+      const config = {headers: {"Content-Type": "application/json"},};
+      const { data } = await axios.put(`/api/v1/order/${id}/pay`,paymentResult,config);
+      console.log(data);
+      dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: ORDER_PAY_FAIL,
+        payload:error.response.data.message,
+      });
+    }
+  };

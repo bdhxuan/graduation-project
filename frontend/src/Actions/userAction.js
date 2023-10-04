@@ -2,6 +2,12 @@ import {
     LOGIN_REQUEST, 
     LOGIN_SUCCESS, 
     LOGIN_FAIL,
+    GET_EMAIL_REQUEST,
+    GET_EMAIL_SUCCESS,
+    GET_EMAIL_FAIL,
+    RESET_PASSWORD_REQUEST, 
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAIL,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -13,9 +19,9 @@ import {
     UPDATE_PROFILE_REQUEST,
     UPDATE_PROFILE_SUCCESS,
     UPDATE_PROFILE_FAIL,
-    FORGOT_PASSWORD_REQUEST,
-    FORGOT_PASSWORD_SUCCESS,
-    FORGOT_PASSWORD_FAIL,
+    UPDATE_PASSWORD_REQUEST,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_FAIL,
     ALL_USERS_REQUEST,
     ALL_USERS_SUCCESS,
     ALL_USERS_FAIL,
@@ -31,6 +37,7 @@ import {
     CLEAR_ERRORS
 } from "../Constants/userConstant";
 import axios from "axios";
+
 
 //dang nhap
 export const login = (email, password) => async (dispatch) => {
@@ -48,7 +55,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch ({
         type: LOGIN_FAIL,
-        payload: error.response.data.message
+        payload: error.response.data.message,
     });
   }
 };
@@ -60,8 +67,13 @@ export const register = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.post(`/api/v1/register`, userData, config);
+    const { data, status} = await axios.post(`/api/v1/register`, userData, config);
 
+    let{username, email} = data.user;
+
+    if(status === 201){
+      await axios.post(`/api/v1/registerMail`, { username, userEmail : email, text: "Đăng ký tài khoản thành công"})
+  }
     dispatch({ 
         type: REGISTER_SUCCESS, 
         payload: data.user 
@@ -123,23 +135,104 @@ export const updateProfile = (userData) => async (dispatch) => {
   }
 };
 
-//quen mat khau
-export const forgotPassword = (email) => async (dispatch) => {
+export const updatePassword = (passwords) => async (dispatch) => {
   try {
-    dispatch({ type: FORGOT_PASSWORD_REQUEST });
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
     const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.post(`/api/v1/password/forgot`, email, config);
+    const { data } = await axios.put(`/api/v1/password/update`,passwords,config);
 
-    dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.message });
+    dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({
-      type: FORGOT_PASSWORD_FAIL,
+      type: UPDATE_PASSWORD_FAIL,
       payload: error.response.data.message,
     });
   }
 };
+
+export function getUser(email){
+  return async dispatch => {
+    try {
+      dispatch({ type: GET_EMAIL_REQUEST });
+  
+      const config = { headers: { "Content-Type": "application/json" } };
+  
+      const { data } = await axios.post(`/api/v1/user`, email, config);
+
+      dispatch({ 
+          type: GET_EMAIL_SUCCESS, 
+          payload: data,
+      });
+      const {data : {code}, status} = await axios.post(`/api/v1/generateOTP`, email, config);
+      console.log(status)
+      if(status === 201){
+        const Email = data.email
+        console.log(Email);
+        const username = data.username
+        console.log(username)
+        const text = `Mã OTP của bạn là ${code}`;
+        await axios.post(`/api/v1/registerMail`, {userEmail:Email, username, text, subject : "Mã OTP khôi phục mật khẩu"})
+      }
+    } catch (error) {
+      dispatch ({
+          type: GET_EMAIL_FAIL,
+          payload: error.response.data.message,
+      });
+    }
+  }
+  
+}
+
+// export async function generateOTP(email){
+//   try{
+//     const config = { headers: { "Content-Type": "application/json" } };
+//     const {data : {code}, status} = await axios.post(`/api/v1/generateOTP`, email, config);
+//     console.log(status)
+//     if(status === 201){
+//       const { data } = await axios.post(`/api/v1/user`, email, config);
+//       const Email = data.email
+//       console.log(Email);
+//       const username = data.username
+//       console.log(username)
+//       const text = `Mã OTP của bạn là ${code}`;
+//       await axios.post(`/api/v1/registerMail`, {userEmail:Email, username, text, subject : "Mã OTP khôi phục mật khẩu"})
+//     }
+//     return Promise.resolve(code);
+//   }catch (error) {
+//     return Promise.reject(error);
+// }
+// };
+
+
+export async function verifyOTP({email, code}) {
+  try {
+    const config = { headers: { "Content-Type": "application/json" } };
+    const { data, status } = await axios.post(`/api/v1/verifyOTP`, {email, code}, config)
+    console.log(data);
+    return { data, status}
+  } catch (error) {
+      return Promise.reject(error);
+  }
+}
+
+export const resetPassword = (password) => async (dispatch) => {
+  try {
+    dispatch({type: RESET_PASSWORD_REQUEST})
+    const config = { headers: { "Content-Type": "application/json" } };
+    const {data} = await axios.put(`/api/v1/resetPassword`, password,config);
+    dispatch({ 
+      type: RESET_PASSWORD_SUCCESS, 
+      payload: data.success
+    });
+  }catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+}
 
 //lay tat ca user -- admin
 export const getAllUsers = () => async (dispatch) => {

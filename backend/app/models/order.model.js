@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
     shippingInfo: {
+        username: {
+            type: String,
+            required: [true, "Nhập tên"],
+            maxLength:[30, "Tên không thể vượt quá 30 ký tự!"],
+        },
         address: {
             type: String, 
             required: true,
@@ -54,8 +59,26 @@ const orderSchema = new mongoose.Schema({
     },
     shippingPrice: {
         type: Number,
+        required: true,
         default: 0
     },
+    paymentMethod: {
+        type: String
+    },
+    paymentResult: {
+        id: {
+          type: String,
+        },
+        status: {
+          type: String,
+        },
+        update_time: {
+          type: String,
+        },
+        email_address: {
+          type: String,
+        },
+      },
     totalPrice: {
         type: Number,
         default: 0
@@ -65,10 +88,20 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: "Đang xử lý",
     },
-    deliveryAt: Date,
+    deliveryAt: {
+        type: Date,
+    },
     createAt: {
         type: Date,
         default: Date.now,
+    },
+    paidAt: {
+        type: Date,
+    },
+    isPaid: {
+        type: Boolean,
+        required: true,
+        default: false,
     },
 });
 

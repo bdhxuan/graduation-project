@@ -7,7 +7,7 @@ class ApiFeatures {
     search(){
         const keyword = this.queryStr.keyword 
         ? {
-            name: {
+            description: {
                 $regex: this.queryStr.keyword,
                 $options: "i", //tim kiem khong phan biet kieu chu
             },
@@ -17,6 +17,7 @@ class ApiFeatures {
         this.query = this.query.find({...keyword});
         return this;
     }
+
 
     //loc san pham
     filter(){

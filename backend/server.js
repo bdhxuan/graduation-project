@@ -4,7 +4,7 @@ const Mongoose = require("./app/utils/mongoose.util");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 
-//Handling Uncaught Exception
+
 process.on("uncaughtException", (err)=>{
     console.log(`Error: ${err.message}`);
     console.log(`Shutting down the server due to Uncaught Exception`);
@@ -35,7 +35,6 @@ async function startServer() {
     }
 }
 
-//Unhandled Promise Rejection
 process.on("unhandledRejection", err=> {
     console.log(`Error: ${err.message}`);
     console.log(`Shutting down the server due to Unhandled Promise Rejection`);

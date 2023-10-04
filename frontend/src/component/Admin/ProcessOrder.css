@@ -1,3 +1,58 @@
+.dashboard1{
+    width: 100vw;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 0.7fr 5fr;
+    position: absolute;
+    height: 100%;
+    margin-top: -8rem;
+}
+
+.newProductContainer1{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid rgba(0, 0, 0, 0.158);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    margin-top: 0.5rem;
+}
+
+h2 {
+    margin-left: 0rem;
+    text-transform: uppercase;
+    font-size: 20px;
+    color: blue;
+    font-weight: bold;
+}
+
+.orderDetailsContainerBox{
+    margin-left: 3rem;
+}
+
+
+.confirmCartItems > h2{
+    margin-left: -5rem;
+}
+
+.createProductBtn{
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.confirmCartItemsContainer {
+    margin-left: -2rem;
+}
+
+.confirmCartItemsContainer > div> img{
+    width: 100px;  
+}
+
+.confirmCartItemsContainer > div>a{
+    margin-left: -10rem;
+}
 
 .updateOrderForm {
     margin: 5rem 0;
@@ -5,9 +60,13 @@
     background-color: white;
 }
 
+.updateOrderForm>h2{
+    margin-left: 0rem;
+}
+
 .updateOrderForm>div {
     display: flex;
-    width: 100%;
+    width: 65%;
     align-items: center;
 }
 
@@ -22,26 +81,19 @@
     outline: none;
 }
 
-h2 {
-    margin: 1rem 0rem 4rem 4rem;
-    text-transform: uppercase;
-    font-size: 20px;
-    color: rgb(38, 107, 246);
-}
-
-.orderDetailsContainerBox{
-    margin-left: 6rem;
-}
-
-.confirmCartItems > h2{
-    margin-left: -1rem;
-}
-
-.createProductBtn{
+#createOrderBtn {
+    border: none;
+    background-color: rgb(205 149 12);
+    color: white;
+    font-size: 16px;
+    width: 65%;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.5s;
     border-radius: 4px;
-    text-transform: uppercase;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
 }
-
 
 @media screen and (max-width: 600px) {
     .updateOrderForm {
@@ -56,4 +108,9 @@ h2 {
     .updateOrderForm>div>svg {
         font-size: 15px;
     }
+
+    .orderDetailsContainerBox{
+        padding: 5rem;
+    }
+    
 }

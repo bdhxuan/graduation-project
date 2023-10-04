@@ -12,9 +12,6 @@ import ImportExportIcon from "@material-ui/icons/ImportExport";
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      {/* <Link to="/">
-        <img src={logo} alt="Ecommerce" />
-      </Link> */}
       <Link to="/admin/dashboard">
         <p>
           <i className="fa-solid fa-house"></i> Quản trị
@@ -49,6 +46,11 @@ const Sidebar = () => {
       <Link to="/admin/users">
         <p>
           <i className="fa-solid fa-users"></i> Người dùng
+        </p>
+      </Link>
+      <Link to="/admin/reviews">
+        <p>
+        <i class="fa-solid fa-star"></i>Đánh giá
         </p>
       </Link>
     </div>

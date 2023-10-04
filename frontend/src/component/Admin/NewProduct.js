@@ -6,7 +6,6 @@ import Title from '../layout/Title';
 import Sidebar from './Sidebar';
 import { NEW_PRODUCT_RESET } from "../../Constants/productConstant";
 import { useNavigate } from 'react-router-dom';
-import { Button } from "@material-ui/core";
 import {getCategories} from "../../Actions/categoryAction"
 
 
@@ -92,17 +91,18 @@ const NewProduct = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="newProductContainer">
+          <div className='newProductBox'>
+          <h1>Thêm sản phẩm</h1>
           <form className="createProductForm" encType="multipart/form-data" onSubmit={createProductSubmitHandle}>
-            <h1>Thêm sản phẩm</h1>
             <div>
-              <input type="text" placeholder="Tên sản phẩm" required value={name} onChange={(e) => setName(e.target.value)} />
+              <input className='textbox1' type="text" placeholder="Tên sản phẩm" required value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div>
-              <input type="number" placeholder="Giá" required onChange={(e) => setPrice(e.target.value)} />
+              <input className='textbox2' type="number" placeholder="Giá" required onChange={(e) => setPrice(e.target.value)} />
             </div>
 
             <div>
-              <textarea placeholder="Mô tả sản phẩm" value={description} onChange={(e) => setDescription(e.target.value)} cols="30" rows="1"></textarea>
+              <textarea className='textbox2' placeholder="Mô tả sản phẩm" value={description} onChange={(e) => setDescription(e.target.value)} cols="30" rows="1"></textarea>
             </div>
 
             <div>
@@ -116,11 +116,11 @@ const NewProduct = () => {
             </div>
 
             <div>
-              <input type="number" placeholder="Số lượng" required onChange={(e) => setStock(e.target.value)}/>
+              <input className='textbox2' type="number" placeholder="Số lượng" required onChange={(e) => setStock(e.target.value)}/>
             </div>
 
             <div id="createProductFormFile">
-              <input type="file" name="avatar" accept="image/*" onChange={createProductImagesChange} multiple />
+              <input className='textbox1' type="file" name="avatar" accept="image/*" onChange={createProductImagesChange} multiple />
             </div>
 
             <div id="createProductFormImage">
@@ -128,8 +128,9 @@ const NewProduct = () => {
                 <img key={index} src={image} alt="Product Preview" />
               ))}
             </div>
-            <Button id="createProductBtn" type="submit" disabled={loading ? true : false}> Thêm mới</Button>
-          </form>
+            <input className="shippingBtn" type="submit" value="Thêm mới" disabled={loading ? true : false} />
+          </form> 
+          </div>
         </div>
       </div>
     </Fragment>

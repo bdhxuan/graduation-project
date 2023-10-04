@@ -1,10 +1,13 @@
 .confirmOrderPage {
-    height: 70vh;
+    width: 100vw;
+    max-width: 100%;
+    height: 80vh;
     background-color: white;
     display: grid;
-    grid-template-columns: 6fr 3fr;
-    
-    max-height: 100%;
+    grid-template-columns: 5fr 3fr;
+    flex-direction: column;
+    position: absolute;
+    /* // margin-top:-2%; */
 }
 
 .confirmOrderPage>div:last-child {
@@ -16,16 +19,33 @@
     padding-bottom: 0%;
 }
 
-.confirmshipping > h3{
+.confirmshipping  > h3{
     text-transform: uppercase;
-    color: tomato;
-    /* font-weight: bold; */
+    color:blue;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .orderSummary > h3{
     text-transform: uppercase;
-    color: tomato;
-    /* font-weight: bold; */
+    color:blue;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.confirmCartItems > h3 {
+    text-transform: uppercase;
+    color:blue;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.confirmForm > h3{
+    text-transform: uppercase;
+    color:blue;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: -15%;
 }
 
 .confirmshipping>p {
@@ -34,23 +54,23 @@
 
 .confirmshippingBox,
 .confirmCartItemsContainer {
-    margin: 2rem;
+    margin: 2rem 3rem;
 }
 
 .confirmshippingBox>div {
     display: flex;
-    margin: 1rem 0;
+    margin: 1rem 0rem;
 }
 
 .confirmshippingBox>div>p {
-    font-size: 15px;
+    font-size: 18px;
     color: black;
     font-weight: bold;
 }
 
 .confirmshippingBox>div>span {
     margin: 0 1rem;
-    font-size: 15px;
+    font-size: 18px;
     color: #575757;
 }
 
@@ -77,7 +97,7 @@
 }
 
 .confirmCartItemsContainer>div>img {
-    width: 6rem;
+    width: 12rem;
 }
 
 .confirmCartItemsContainer>div>a {
@@ -90,15 +110,16 @@
 .confirmCartItemsContainer>div>span {
     font-size: 15px;
     color: #5e5e5e;
+    margin-left: -25%;
 }
 
 .orderSummary {
-    padding: 7rem;
+    padding: 5rem;
 }
 
 .orderSummary>p {
     text-align: center;
-    font-size: 15px;
+    font-size: 18px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.267);
     padding: 1rem;
     width: 100%;
@@ -108,13 +129,29 @@
 
 .orderSummary>div>div {
     display: flex;
-    font-size: 15px;
+    font-size: 18px;
     justify-content: space-between;
     margin: 2rem 0;
 }
 
 .orderSummary>div>div>span {
     color: rgba(0, 0, 0, 0.692);
+}
+
+.confirmForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    justify-content: space-evenly;
+    height: 80%;
+    transition: all 0.5s;
+    font-size: 15px;
+}
+
+.confirmForm > .paymentForm{
+    margin: 20px 0px 0px -25% ;
 }
 
 .orderSummaryTotal {
@@ -130,8 +167,8 @@
     font-weight: bold;
 }
 
-.orderSummary>button {
-    background-color: rgb(4, 97, 238);
+.orderSummary .btn_payment {
+    background-color: rgb(205 149 12);
     color: white;
     width: 100%;
     padding: 0.5rem;
@@ -143,6 +180,7 @@
     border-radius: 4px;
     text-transform: uppercase;
     font-weight: bold;
+    margin-top: 10%;
 }
 
 .orderSummary>button:hover {

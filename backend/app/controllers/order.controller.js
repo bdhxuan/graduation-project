@@ -2,6 +2,7 @@ const Order = require("../models/order.model");
 const ApiError = require("../middleware/api-error");
 const Product = require("../models/product.model");
 const catchAsyncError = require("../middleware/catchAsyncError");
+const config = require("../config/index")
 
 //tao don hang moi
 exports.createOrder = catchAsyncError(async (req, res, next)=> {
@@ -9,6 +10,7 @@ exports.createOrder = catchAsyncError(async (req, res, next)=> {
         shippingInfo, 
         orderItems, 
         shippingPrice, 
+        paymentMethod,
         totalPrice,
     } = req.body;
 
@@ -18,7 +20,8 @@ exports.createOrder = catchAsyncError(async (req, res, next)=> {
         shippingPrice, 
         totalPrice,
         user: req.user._id,
-        createAt: Date.now()
+        paymentMethod,
+        createAt: Date.now(),
     });
 
     res.status(201).json({
@@ -89,9 +92,9 @@ exports.updateOrder = catchAsyncError( async(req, res, next)=> {
     });
 
     order.orderStatus = req.body.status;
-    // if(req.body.status === "Đã giao hàng"){
-    //     order.deliveredAt = Date.now();
-    // }
+    if(req.body.status === "Đã giao hàng"){
+        order.deliveryAt = Date.now();
+    }
 
    await order.save({validateBeforeSave: false});
 
@@ -108,7 +111,7 @@ async function updateStock(id, quantity) {
 
 //xoa tat ca don hang --admin
 exports.deleteOrder = catchAsyncError( async(req, res, next)=> {
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id)
 
     if(!order) {
         return next(new ApiError(404, "Không tồn tại đơn hàng với Id này"));
@@ -119,3 +122,25 @@ exports.deleteOrder = catchAsyncError( async(req, res, next)=> {
         success: true,
     });
 });
+
+
+exports.updateOrderToPaid = catchAsyncError(async(req, res, next) => {
+    const order = await Order.findById(req.params.id);
+    if(order){
+        (order.isPaid = true),
+        (order.paidAt = Date.now()),
+        (order.paymentResult = {
+            id: req.body.id,
+            status: req.body.status,
+            update_time: req.body.update_time,
+            email_address: req.body.payer.email_address,
+        });
+        await order.save();
+        res.status(200).json({
+            success: true,
+            order
+        });
+    }else {
+        return next(new ApiError(404, "Không tồn tại đơn hàng với Id này"));
+    } 
+})

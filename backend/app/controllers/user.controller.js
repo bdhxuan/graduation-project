@@ -4,15 +4,22 @@ const { validate } = require("../models/user.model");
 const User = require("../models/user.model");
 const sendToken = require("../utils/jwtToken.until");
 const crypto = require("crypto");
-
+const cloudinary = require("cloudinary");
+const otpGenerator = require("otp-generator")
 
 //dang ky tai khoan
 exports.registerUser = catchAsyncError(async(req, res, next) => {
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+      });
    
     const {username, email, password} = req.body;
     const user = await User.create({
         username, email, password,
-        
+        avatar: {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          },
     });
  
      sendToken(user, 201, res);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
@@ -22,7 +29,7 @@ exports.registerUser = catchAsyncError(async(req, res, next) => {
 exports.loginUser = catchAsyncError(async(req, res, next) => {
     const {email, password} = req.body;
     if(!email || !password) {
-        return next(new ApiError(400, "Nhập email và mật khẩu!"));
+        return next(new ApiError(400, "Nhập email hoặc mật khẩu!"));
     }
 
     const user = await User.findOne({email }).select("+password");
@@ -38,10 +45,26 @@ exports.loginUser = catchAsyncError(async(req, res, next) => {
     sendToken(user, 200, res);       
 });
 
+exports.getUser = catchAsyncError(async(req, res, next) => {
+    const email = req.body.email;
+    if(!email ) {
+        return next(new ApiError(404, "Email không tồn tại"));
+    }
+    const user = await User.findOne({email })
+    const username = user.username;
+    const avatar = user.avatar;
+    if(!user){
+        return next(new ApiError(404, "Người dùng không tồn tại"));
+    }
+    res.status(201).json({
+        success: true,
+        email, username, avatar
+    });    
+});
+
 //dang xuat
 exports.logout = catchAsyncError(async(req, res, next) => {
     res.cookie("token", null, {
-        expires: new Date(Date.now()),
         httpOnly: true,
     });
     res.status(200).json({
@@ -49,7 +72,6 @@ exports.logout = catchAsyncError(async(req, res, next) => {
         message: "Đăng xuất thành công!",
     });
 });
-
 
 //lay thong tin chi tiet nguoi dung
 exports.getUserDetails = catchAsyncError(async(req, res, next)=> {
@@ -68,11 +90,11 @@ exports.updatePassword = catchAsyncError(async(req, res, next)=> {
     const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
     if(!isPasswordMatched){
-        return next(new ApiError(400, "Mật khẩu cũ không đúng!"));
+        return next(new ApiError(404, "Mật khẩu cũ không đúng!"));
     }
 
     if(req.body.newPassword !== req.body.confirmPassword){
-        return next(new ApiError(400, "Mật khẩu không trùng khớp!"));
+        return next(new ApiError(404, "Mật khẩu không trùng khớp!"));
     }
 
     user.password = req.body.newPassword;
@@ -84,7 +106,7 @@ exports.updatePassword = catchAsyncError(async(req, res, next)=> {
 });
 
 //cap nhat ho so user
-exports.updateProfile = catchAsyncError(async(req, res, next)=> {
+exports.updatePassword = catchAsyncError(async(req, res, next)=> {
 
     const user = await User.findById(req.user.id).select("+password");
 
@@ -99,12 +121,31 @@ exports.updateProfile = catchAsyncError(async(req, res, next)=> {
     }
 
     user.password = req.body.newPassword;
-    user.username = req.body.username;
-    user.email = req.body.email;
 
     await user.save();
 
     sendToken(user, 200, res);
+});
+
+exports.updateProfile = catchAsyncError(async(req, res, next)=> {
+    const newUserData = {
+        username: req.body.username,
+        email: req.body.email,
+    };
+
+    if(req.body.avatar !== ""){
+        const user = await User.findById(req.user.id);
+        const imageId = user.avatar.public_id;
+        await cloudinary.v2.uploader.destroy(imageId)
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+          };
+    }
 });
 
 //lay tat ca user -- admin
@@ -162,3 +203,41 @@ exports.deleteUser = catchAsyncError(async(req, res, next)=> {
         message: "Xóa người dùng thành công !"
     });
 });
+
+exports.generateOTP = catchAsyncError(async(req, res, next)=> {
+    req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false })
+    res.status(201).send({ code: req.app.locals.OTP })
+})
+
+exports.verifyOTP = catchAsyncError(async(req, res, next)=>{
+    const code = req.body.code;
+    if(parseInt(req.app.locals.OTP) === parseInt(code)){
+        req.app.locals.OTP = null; 
+        req.app.locals.resetSession = true;
+        return res.status(201).send({ message: 'Xác minh thành công!'})
+    }
+    return res.status(400).send({ error: "Mã OTP không hợp lệ"});
+})
+
+
+exports.createResetSession = catchAsyncError(async(req, res, next)=> {
+    if(req.app.locals.resetSession){
+         return res.status(201).send({ flag : req.app.locals.resetSession})
+    }
+    return res.status(440).send({error : "Mã hết hạn!"})
+ })
+
+ exports.resetPassword = catchAsyncError(async(req, res, next)=> {
+    if(!req.app.locals.resetSession) return res.status(440).send({error : "Mã OTP hết hạn!"});
+    const user = await User.findOne({email: req.body.email});
+    if(!user){
+        return next(new ApiError(404, "Người dùng không tồn tại"))
+    }
+    if(req.body.password !== req.body.confirmPassword){
+        return next(new ApiError(404, "Mật khẩu không trùng khớp"))
+    }
+    user.password = req.body.password;
+    await user.save();
+    sendToken(user, 200, res);
+})
+

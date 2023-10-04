@@ -5,10 +5,9 @@ import Sidebar from './Sidebar';
 import { DataGrid } from "@material-ui/data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import {getAdminProduct, clearErrors, deleteProduct} from "../../Actions/productAction";
-import { Link} from "react-router-dom";
 import { Button } from "@material-ui/core";
 import {DELETE_PRODUCT_RESET} from "../../Constants/productConstant";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -45,17 +44,17 @@ const ListProduct = () => {
   }, [dispatch, error, deleteError, navigate, isDeleted]);
 
     const columns = [
-        // { field: "id", headerName: "Mã sản phẩm", minWidth: 200, flex: 0.5 },
+        { field: "id", headerName: "IDsản phẩm", minWidth: 200, flex: 0.5 },
 
         { field: "name", headerName: "Tên", minWidth: 350, flex: 0.5},
 
-        { field: "category", headerName: "Danh mục sản phẩm", minWidth: 150, flex: 0.5},
+        { field: "category", headerName: "Danh mục sản phẩm", minWidth: 100, flex: 0.5},
 
-        { field: "stock", headerName: "Số lượng", type: "number", minWidth: 150, flex: 0},
+        { field: "stock", headerName: "Số lượng", type: "number", minWidth: 180, flex: 0},
 
         { field: "price", headerName: "Giá", type: "number", minWidth: 100, flex: 0.5},
 
-        { field: "actions", flex: 0.2, headerName: "Actions", minWidth: 200, type: "number", sortable: false, renderCell: (params) => {
+        { field: "actions", flex: 0.2, headerName: "Actions", minWidth: 150, type: "number", sortable: false, renderCell: (params) => {
             return (
             <Fragment>
                 <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>

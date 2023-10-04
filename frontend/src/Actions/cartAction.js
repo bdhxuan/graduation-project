@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO} from "../Constants/cartConstant";
+import {ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO, CLEAR_CART} from "../Constants/cartConstant";
 import axios from "axios";
 
 //Them vao gio hang
@@ -39,3 +39,11 @@ export const saveShippingInfo = (data) => async (dispatch) => {
 
   localStorage.setItem("shippingInfo", JSON.stringify(data));
 };
+
+
+export const clearCart = () => async(dispatch) => {
+  dispatch({
+    type: CLEAR_CART,
+    payload: null,
+  })
+}
