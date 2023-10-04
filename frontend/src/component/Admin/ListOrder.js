@@ -45,7 +45,7 @@ const ListOrder = () => {
   }, [dispatch, error, deleteError, navigate, isDeleted]);
 
   const columns = [
-    { field: "id", headerName: "Mã đơn hàng", minWidth: 300, flex: 1 },
+    // { field: "id", headerName: "Mã đơn hàng", minWidth: 300, flex: 1 },
 
     { field: "status", headerName: "Trạng thái", minWidth: 150, flex: 0.5, cellClassName: (params) => {
         return params.getValue(params.id, "status") === "Đã giao hàng" ? "greenColor" : "redColor";},

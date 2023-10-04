@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import "./Login_Signup.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register ,clearErrors} from '../../Actions/userAction';
@@ -10,7 +10,7 @@ const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error, isAuthenticated} = useSelector( (state) => state.user);
-
+  const location = useLocation();
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
@@ -45,7 +45,7 @@ const LoginSignup = () => {
       setUser({ ...user, [e.target.name]: e.target.value });
   };
 
- 
+ const redirect = location.search ? location.search.split("=")[1] : "/account";
   useEffect(() => {
     
     if (error) {
@@ -53,9 +53,9 @@ const LoginSignup = () => {
       dispatch(clearErrors());
     }
     if(isAuthenticated ){
-      navigate("/account");
+      navigate(redirect);
     }
-  }, [dispatch, error, navigate, isAuthenticated]);
+  }, [dispatch, error, navigate, isAuthenticated, redirect]);
 
 
 

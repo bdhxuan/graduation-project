@@ -71,7 +71,7 @@ const ProductDetails = () => {
                 <div>
                     <div className="detail-1">
                         <h2>{product.name}</h2>
-                        <p>Mã sản phẩm: {product._id}</p>
+                        {/* <p>Mã sản phẩm: {product._id}</p> */}
                     </div>
                     <div className="detail-3">
                          <h1>

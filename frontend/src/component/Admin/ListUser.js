@@ -45,13 +45,13 @@ const ListUser = () => {
     }, [dispatch, error, deleteError, navigate, isDeleted, message]);
 
     const columns = [
-        { field: "id", headerName: "Mã người dùng", minWidth: 180, flex: 0.8 },
+        // { field: "id", headerName: "Mã người dùng", minWidth: 180, flex: 0.8 },
 
         { field: "email", headerName: "Email", minWidth: 200, flex: 1},
 
         { field: "name", headerName: "Tên", minWidth: 150, flex: 0.5},
 
-        { field: "password", headerName: "Mật khẩu", minWidth: 150, flex: 0.5},
+        // { field: "password", headerName: "Mật khẩu", minWidth: 150, flex: 0.5},
 
         { field: "role", headerName: "Vai trò", type: "number", minWidth: 150, flex: 0.5, cellClassName: (params) => {
             return params.getValue(params.id, "role") === "admin" ? "greenColor" : "redColor";},

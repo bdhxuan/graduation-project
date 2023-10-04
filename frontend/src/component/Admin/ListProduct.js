@@ -45,7 +45,7 @@ const ListProduct = () => {
   }, [dispatch, error, deleteError, navigate, isDeleted]);
 
     const columns = [
-        { field: "id", headerName: "Mã sản phẩm", minWidth: 200, flex: 0.5 },
+        // { field: "id", headerName: "Mã sản phẩm", minWidth: 200, flex: 0.5 },
 
         { field: "name", headerName: "Tên", minWidth: 350, flex: 0.5},
 

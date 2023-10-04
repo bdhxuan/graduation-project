@@ -47,7 +47,7 @@ exports.getSingleOrder = catchAsyncError( async(req, res, next)=> {
 //lay don hang cua toi
 exports.myOrders = catchAsyncError( async(req, res, next)=> {
     const orders = await Order.find({user: req.user._id});
-    if(!order) {
+    if(!orders) {
         return next(new ApiError(404, "Không tồn tại đơn hàng với Id này"));
     }
     res.status(200).json({
